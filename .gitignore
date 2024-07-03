@@ -1,0 +1,32 @@
+# Gradle
+.gradle/
+**/build/
+**/out/
+# except
+!gradle/wrapper/gradle-wrapper.jar
+
+# IntelliJ IDEA
+.idea
+*.iws
+*.iml
+*.ipr
+
+# Java
+*.class
+*.jar
+*.war
+
+# OS
+**/.DS_Store
+**/Thumbs.db
+
+# Environment
+.env
+
+# Log
+*.log
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
