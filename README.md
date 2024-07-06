@@ -11,9 +11,9 @@ disturbing, so I developed a custom solution to enhance the user experience.
 In this implementation, when a HEIC format attachment is uploaded in a text channel, the app 
 converts it to a JPEG image. The bot then posts the converted image in the same text channel.
 
-The project is developed with Java Spring Boot and built with Gradle. 
+The project is developed with Java Spring Boot using Java Discord API and built with Gradle. 
 The image conversion service is separated from the app, developed as a Google Cloud Function written
-in Python with Flask and using the Pillow framework for image processing. It communicates with the 
+in Python with Flask and using Pillow for image processing. It communicates with the 
 app through HTTP requests.
 
 ## Project Structure
@@ -24,7 +24,6 @@ app through HTTP requests.
     - `requirements.txt`: The dependencies required for the Cloud Function.
 - `src/`: Contains the Java source code.
 - `build.gradle`: The Gradle build file.
-- `settings.gradle`: The Gradle settings file.
 
 ## Environment Variables
 Sensitive data for the project is specified as environment variables. In the Google Cloud Function, 
