@@ -25,3 +25,8 @@
 
 # Log
 *.log
+
+# Misc
+.gcloudignore
+gcloud.txt
+app.yaml

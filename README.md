@@ -12,9 +12,11 @@ In this implementation, when a HEIC format attachment is uploaded in a text chan
 converts it to a JPEG image. The bot then posts the converted image in the same text channel.
 
 The project is developed with Java Spring Boot using Java Discord API and built with Gradle. 
+The app is deployed on Google App Engine.
+
 The image conversion service is separated from the app, developed as a Google Cloud Function written
 in Python with Flask and using Pillow for image processing. It communicates with the 
-app through HTTP requests.
+app via HTTP requests.
 
 ## Project Structure
 
@@ -25,9 +27,23 @@ app through HTTP requests.
 - `src/`: Contains the Java source code.
 - `build.gradle`: The Gradle build file.
 
-## Environment Variables
-Sensitive data for the project is specified as environment variables. In the Google Cloud Function, 
-they are set directly during initial deployment. In the Spring Boot application, they are loaded 
-from a `.env` file. The `application.properties` file contains the loading configuration and 
-variable placeholders for reference.
+## Deployment
+The deployment configuration for Google App Engine is specified in the app.yaml file. Manual instance 
+scaling is used to ensure continuous operation, as there is no direct traffic to the app (the app 
+does not have its own endpoints to serve). Google App Engine performs periodic health checks to
+assess the app's liveness, so a REST controller is implemented to respond to these health checks.
 
+## Sensitive Data Handling
+
+Sensitive data for the project is specified as environment variables. The handling of these variables 
+is as follows:
+
+- **Google Cloud Function:**
+  - Environment variables are set directly during the initial deployment process.
+
+- **Spring Boot Application:**
+  - Local Development:
+    - Environment variables are loaded from a `.env` file. The `application.properties` file contains 
+    the configuration to load these variables and placeholders for reference.
+  - Deployment:
+    - Environment variables are specified in the `app.yaml` file.

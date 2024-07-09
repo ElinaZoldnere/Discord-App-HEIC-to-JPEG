@@ -11,7 +11,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +19,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 @Component
-public class ProcessConversionToJpg {
+class ProcessConversionToJpg {
 
     @Value("${CLOUD_FUNCTION_URL}")
     private String cloudFunctionUrl;

@@ -14,8 +14,11 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
 }
 
-sourceCompatibility = '18'
-targetCompatibility = '18'
+//sourceCompatibility = '18' // local development
+//targetCompatibility = '18' // local development
+
+sourceCompatibility = '17' // deploying on Google App Engine
+targetCompatibility = '17' // deploying on Google App Engine
 
 compileJava {
     options.encoding = "UTF-8"
@@ -32,4 +35,15 @@ repositories {
 test {
     useJUnitPlatform()
 }
+
+jar {
+    enabled = false
+}
+
+bootJar {
+    enabled = true
+    archiveBaseName = 'discord-bot'
+    archiveVersion = '1.0.0'
+}
+
 
