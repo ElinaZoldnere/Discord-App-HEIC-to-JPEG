@@ -1,5 +1,7 @@
 package com.my.discordbot;
 
+import com.my.discordbot.event.EventListener;
+import com.my.discordbot.service.ProcessConversionToJpg;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.ChannelType;

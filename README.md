@@ -31,7 +31,7 @@ app via HTTP requests.
 The deployment configuration for Google App Engine is specified in the app.yaml file. Manual instance 
 scaling is used to ensure continuous operation, as there is no direct traffic to the app (the app 
 does not have its own endpoints to serve). Google App Engine performs periodic health checks to
-assess the app's liveness, so a REST controller is implemented to respond to these health checks.
+assess the app's liveliness, so a REST controller is implemented to respond to these health checks.
 
 ## Sensitive Data Handling
 

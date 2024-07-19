@@ -1,4 +1,4 @@
-package com.my.discordbot;
+package com.my.discordbot.service;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Message;
@@ -11,6 +11,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +20,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 @Component
-class ProcessConversionToJpg {
+public class ProcessConversionToJpg {
+
+    @Autowired
+    private DiscordService discordService;
 
     @Value("${CLOUD_FUNCTION_URL}")
     private String cloudFunctionUrl;
@@ -27,12 +31,6 @@ class ProcessConversionToJpg {
     private String secretToken;
     @Value("${OWNER_ID}")
     private String ownerId;
-
-    private JDA jda;
-
-    public void setJda(JDA jda) {
-        this.jda = jda;
-    }
 
     public void process(Message.Attachment attachment, TextChannel textChannel) {
         try {
@@ -61,10 +59,10 @@ class ProcessConversionToJpg {
                         }
                     } else {
                         String errorBody = response.body() != null ? response.body().string() : "No response body";
-                        sendDM(ownerId, "Failed to convert HEIC file: HTTP status " + response.code() + "\nError: " + errorBody);
+                        discordService.sendDM(ownerId, "Failed to convert HEIC file: HTTP status " + response.code() + "\nError: " + errorBody);
                     }
                 } catch (IOException e) {
-                    sendDM(ownerId, "Failed to convert HEIC file: " + e.getMessage());
+                    discordService.sendDM(ownerId, "Failed to convert HEIC file: " + e.getMessage());
                 } finally {
                     if (!file.delete()) {
                         System.err.println("Failed to delete temporary file: " + file.getAbsolutePath());
@@ -72,14 +70,8 @@ class ProcessConversionToJpg {
                 }
             });
         } catch (IOException e) {
-            sendDM(ownerId, "Failed to create temporary file for download: " + e.getMessage());
+            discordService.sendDM(ownerId, "Failed to create temporary file for download: " + e.getMessage());
         }
-    }
-
-    private void sendDM(String userId, String content) {
-        jda.retrieveUserById(userId).queue(user -> user.openPrivateChannel().queue(channel -> {
-            channel.sendMessage(content).queue();
-        }));
     }
 
 }
