@@ -1,29 +1,25 @@
 package com.my.discordbot.service;
 
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
-import net.dv8tion.jda.api.utils.FileUpload;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 
-@Component
+@Service
 public class ProcessConversionToJpg {
 
     @Autowired
     private DiscordService discordService;
+    @Autowired
+    private HttpService httpService;
+    @Autowired
+    private FileService fileService;
 
     @Value("${CLOUD_FUNCTION_URL}")
     private String cloudFunctionUrl;
@@ -34,28 +30,15 @@ public class ProcessConversionToJpg {
 
     public void process(Message.Attachment attachment, TextChannel textChannel) {
         try {
-            File tempFile = File.createTempFile("attachment-", ".heic");
-            attachment.getProxy().downloadToFile(tempFile).thenAccept(file -> {
-                try {
-                    OkHttpClient client = new OkHttpClient();
-                    RequestBody body = new MultipartBody.Builder()
-                            .setType(MultipartBody.FORM)
-                            .addFormDataPart("file", file.getName(),
-                                    RequestBody.create(file, MediaType.parse("image/heic")))
-                            .build();
-                    Request request = new Request.Builder()
-                            .url(cloudFunctionUrl)
-                            .post(body)
-                            .addHeader("Authorization", "Bearer " + secretToken)
-                            .build();
-                    Response response = client.newCall(request).execute();
+            File tempFile = fileService.createTempFile("attachment-", ".heic");
+            discordService.downloadAttachment(attachment, tempFile, () -> {
+                try (Response response = httpService.uploadFile(tempFile, cloudFunctionUrl,secretToken)){
                     if (response.isSuccessful()) {
                         ResponseBody responseBody = response.body();
                         if (responseBody != null) {
-                            File convertedFile = File.createTempFile("converted-", ".jpg");
-                            Files.write(convertedFile.toPath(), responseBody.bytes());
-                            FileUpload fileUpload = FileUpload.fromData(convertedFile, "converted.jpg");
-                            textChannel.sendFiles(fileUpload).queue();
+                            File convertedFile = fileService.createTempFile("converted-", ".jpg");
+                            fileService.write(convertedFile, responseBody.bytes());
+                            discordService.sendFile(textChannel, convertedFile,"converted.jpg" );
                         }
                     } else {
                         String errorBody = response.body() != null ? response.body().string() : "No response body";
@@ -64,9 +47,7 @@ public class ProcessConversionToJpg {
                 } catch (IOException e) {
                     discordService.sendDM(ownerId, "Failed to convert HEIC file: " + e.getMessage());
                 } finally {
-                    if (!file.delete()) {
-                        System.err.println("Failed to delete temporary file: " + file.getAbsolutePath());
-                    }
+                    fileService.delete(tempFile);
                 }
             });
         } catch (IOException e) {
