@@ -16,7 +16,7 @@ The app is deployed on Google App Engine.
 
 The image conversion service is separated from the app, developed as a Google Cloud Function written
 in Python with Flask and using Pillow for image processing. It communicates with the 
-app via HTTP requests.
+app via HTTP requests. Runtime Python 3.11.
 
 ## Project Structure
 
