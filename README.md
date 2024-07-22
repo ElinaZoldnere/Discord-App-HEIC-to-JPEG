@@ -6,7 +6,7 @@ to JPEG images within Discord text channels.
 
 On Discord, HEIC files are treated as regular files rather than images, which prevents them from 
 being previewed and embedded in the text like other image formats. This can be inconvenient and
-disturbing, so I developed a custom solution to enhance the user experience.
+annoying, so I developed a custom solution to enhance the user experience.
 
 In this implementation, when a HEIC format attachment is uploaded in a text channel, the app 
 converts it to a JPEG image. The bot then posts the converted image in the same text channel.
@@ -31,7 +31,7 @@ app via HTTP requests. Runtime Python 3.11.
 The deployment configuration for Google App Engine is specified in the app.yaml file. Manual instance 
 scaling is used to ensure continuous operation, as there is no direct traffic to the app (the app 
 does not have its own endpoints to serve). Google App Engine performs periodic health checks to
-assess the app's liveliness, so a REST controller is implemented to respond to these health checks.
+assess the app's liveness, so a REST controller is implemented to respond to these health checks.
 
 ## Sensitive Data Handling
 
@@ -47,3 +47,6 @@ is as follows:
     the configuration to load these variables and placeholders for reference.
   - Deployment:
     - Environment variables are specified in the `app.yaml` file.
+
+## Container diagram
+![C4_Container_view](documentation/c4_diagrams/C4_Container_view.png)
