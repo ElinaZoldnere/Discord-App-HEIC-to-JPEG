@@ -23,6 +23,11 @@ workspace {
         imageService -> cloudFunction "sends HEIC image for conversion"
         cloudFunction -> imageService "returns converted JPEG"
         imageService -> discord "sends converted JPEG back to Discord"
+
+        // additional relationship definition for Context and Component view
+        application -> discord "sends converted JPEG back to Discord"
+        botApp -> discord "sends converted JPEG back to Discord"
+
         discord -> user "bot posts JPEG image in text channel and Discord displays it"
 
         initializer -> discord "initializes Discord bot"
