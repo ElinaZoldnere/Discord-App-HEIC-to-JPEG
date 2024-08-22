@@ -18,6 +18,11 @@ The image conversion service is separated from the app, developed as a Google Cl
 in Python with Flask and using Pillow for image processing. It communicates with the 
 app via HTTP requests. Runtime Python 3.11.
 
+## Key Features
+- Converts HEIC to JPEG in Discord.
+- Developed with Java Spring Boot and Python Cloud Function.
+- Deployed on Google App Engine and Google Cloud.
+
 ## Project Structure
 
 - `.github/workflows/`: GitHub Actions workflows for continuous integration.
@@ -52,6 +57,9 @@ app via HTTP requests. Runtime Python 3.11.
 - `README.md`: Project documentation.
 - `settings.gradle`: Gradle settings.
 
+## C4 model diagram
+![C4_Container_view](documentation/c4_diagrams/C4_Container_view.png)
+
 ## Deployment
 The deployment configuration for Google App Engine is specified in the app.yaml file. Manual instance 
 scaling is used to ensure continuous operation, as there is no direct traffic to the app (the app 
@@ -72,6 +80,3 @@ is as follows:
     the configuration to load these variables (if present), and placeholders for reference.
   - Deployment:
     - Environment variables are specified in the `app.yaml` file.
-
-## Container diagram
-![C4_Container_view](documentation/c4_diagrams/C4_Container_view.png)
