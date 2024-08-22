@@ -1,6 +1,6 @@
 package com.my.discordbot.event;
 
-import com.my.discordbot.service.ProcessConversionToJpg;
+import com.my.discordbot.service.ProcessConversionToJpeg;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class EventListener extends ListenerAdapter {
 
     @Autowired
-    private ProcessConversionToJpg processConversion;
+    private ProcessConversionToJpeg processConversion;
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {

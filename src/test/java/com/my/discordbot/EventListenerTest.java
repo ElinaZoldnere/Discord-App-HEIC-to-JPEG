@@ -1,7 +1,7 @@
 package com.my.discordbot;
 
 import com.my.discordbot.event.EventListener;
-import com.my.discordbot.service.ProcessConversionToJpg;
+import com.my.discordbot.service.ProcessConversionToJpeg;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.ChannelType;
@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 public class EventListenerTest {
 
     @Mock
-    private ProcessConversionToJpg processConversion;
+    private ProcessConversionToJpeg processConversion;
     @Mock
     private MessageReceivedEvent event;
     @Mock

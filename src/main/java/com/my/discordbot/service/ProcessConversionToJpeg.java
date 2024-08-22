@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 
 @Service
-public class ProcessConversionToJpg {
+public class ProcessConversionToJpeg {
 
     @Autowired
     private DiscordService discordService;
