@@ -19,43 +19,31 @@ in Python with Flask and using Pillow for image processing. It communicates with
 app via HTTP requests. Runtime Python 3.11.
 
 ## Key Features
-- Converts HEIC to JPEG in Discord.
-- Developed with Java Spring Boot and Python Cloud Function.
-- Deployed on Google App Engine and Google Cloud.
+- Converts HEIC format images to JPEG in Discord.
+- Developed with Java Spring Boot and Python Cloud Function, built with Gradle.
+- Deployed on Google App Engine.
 
 ## Project Structure
 
-- `.github/workflows/`: GitHub Actions workflows for continuous integration.
-- `cloud-function/`: The Google Cloud Function script and its dependencies.
-    - `main.py`: The Cloud Function script.
-    - `requirements.txt`: Dependencies for the Cloud Function.
-- `documentation/`: C4 model diagrams.
-- `src/`: The Java source code.
-    - `main/java/com/discordbot`: Production code.
-        - `config/`: Configuration classes.
-          - `AppConfig.java`: Initializes OkHttpClient as a Spring Bean.
-          - `JdaInitializer.java`: Initializes JDA for a specific Discord bot using a token
-        - `controller/HealthCheckRestController.java`: Responds to health check requests.
-        - `event/`: Event listeners.
-          - `EventListener.java`: Listens for Discord events.
-          - `EventListenerInitializer.java`: Sets up event listeners.
-        - `service/`: Core logic implementation.
-          - `DiscordService.java`: Handles image conversion.
-          - `FileService.java`: Manages file operations.
-          - `HttpService.java`: Handles HTTP requests.
-          - `ProcessConversionToJpeg.java`: Processes image conversion by delegating the task to the cloud function.
-          - `DiscordBotApplication.java`: Main class to run the Spring Boot application.
-    - `resources/`: Resource files.
-        - `application.properties`: Spring Boot configuration.
-        - `logback-spring.xml`: Logging configuration.
-    - `test`: Unit and integration tests.
-- `.gitattributes`: Defines file attributes for Git.
-- `.gitignore`: Specifies files ignored by Git.
-- `build.gradle`: The Gradle build file.
-- `gradlew`: Gradle wrapper script (Unix).
-- `gradlew.bat`: Gradle wrapper script (Windows).
-- `README.md`: Project documentation.
-- `settings.gradle`: Gradle settings.
+- `cloud-function/`: Image conversion script, executed in the cloud via Google Cloud Functions.
+    - `main.py`: Python script handling the image conversion logic.
+    - `requirements.txt`: Python dependencies for the Cloud Function.
+
+
+- `src/main/java/com/discordbot/`: The Java source code.
+    - `config/`: Configuration classes.
+        - `AppConfig.java`: Initializes OkHttpClient as a Spring Bean.
+        - `JdaInitializer.java`: Initializes JDA for a specific Discord bot using a token.
+    - `controller/HealthCheckRestController.java`: Responds to health check requests.
+    - `event/`: Event listeners.
+        - `EventListener.java`: Listens for Discord events.
+        - `EventListenerInitializer.java`: Sets up event listeners.
+    - `service/`: Core logic implementation.
+        - `DiscordService.java`: Handles image conversion.
+        - `FileService.java`: Manages file operations.
+        - `HttpService.java`: Handles HTTP requests.
+        - `ProcessConversionToJpeg.java`: Processes image conversion by delegating the task to the cloud function.
+        - `DiscordBotApplication.java`: Main class to run the Spring Boot application.
 
 ## C4 model diagram
 ![C4_Container_view](documentation/c4_diagrams/C4_Container_view.png)
@@ -80,3 +68,8 @@ is as follows:
     the configuration to load these variables (if present), and placeholders for reference.
   - Deployment:
     - Environment variables are specified in the `app.yaml` file.
+
+## Future Improvements
+Potential future improvement ideas for the project:
+- Add birthday reminder using an external database for storing user data.
+- Add integration with ChatGPT for conversation generation.
