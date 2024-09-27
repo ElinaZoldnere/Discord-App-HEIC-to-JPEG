@@ -1,5 +1,6 @@
 package com.my.discordbot.service;
 
+import com.my.discordbot.utils.FileUploadUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.JDA;
@@ -15,6 +16,7 @@ import java.io.File;
 class DiscordService {
 
     private final JDA jda;
+    private final FileUploadUtil fileUploadUtil;
 
     public void sendDM(String userId, String content) {
         jda.retrieveUserById(userId).queue(user -> user.openPrivateChannel().queue(channel -> {
@@ -23,7 +25,7 @@ class DiscordService {
     }
 
     public void sendFile(TextChannel textChannel, File file, String fileName) {
-        FileUpload fileUpload = FileUpload.fromData(file, fileName);
+        FileUpload fileUpload = fileUploadUtil.createFileUpload(file, fileName);
         textChannel.sendFiles(fileUpload).queue();
     }
 

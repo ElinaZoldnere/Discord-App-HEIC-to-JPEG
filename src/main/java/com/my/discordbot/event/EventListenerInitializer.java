@@ -19,4 +19,5 @@ public class EventListenerInitializer implements ApplicationListener<ContextRefr
     public void onApplicationEvent(@NotNull ContextRefreshedEvent event) {
         jda.addEventListener(eventListener);
     }
+
 }
