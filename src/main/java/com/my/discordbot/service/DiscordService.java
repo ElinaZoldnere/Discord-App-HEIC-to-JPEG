@@ -1,19 +1,20 @@
 package com.my.discordbot.service;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.utils.FileUpload;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 
 @Service
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 class DiscordService {
 
-    @Autowired
-    private JDA jda;
+    private final JDA jda;
 
     public void sendDM(String userId, String content) {
         jda.retrieveUserById(userId).queue(user -> user.openPrivateChannel().queue(channel -> {

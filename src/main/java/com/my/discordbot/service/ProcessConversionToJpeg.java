@@ -1,10 +1,11 @@
 package com.my.discordbot.service;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +13,12 @@ import java.io.File;
 import java.io.IOException;
 
 @Service
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class ProcessConversionToJpeg {
 
-    @Autowired
-    private DiscordService discordService;
-    @Autowired
-    private HttpService httpService;
-    @Autowired
-    private FileService fileService;
+    private final DiscordService discordService;
+    private final HttpService httpService;
+    private final FileService fileService;
 
     @Value("${CLOUD_FUNCTION_URL}")
     private String cloudFunctionUrl;

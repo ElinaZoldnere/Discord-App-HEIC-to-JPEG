@@ -30,3 +30,4 @@
 .gcloudignore
 gcloud.txt
 app.yaml
+**/database/

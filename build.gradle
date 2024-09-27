@@ -12,13 +12,16 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.5'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.32'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
 }
 
-//sourceCompatibility = '18' // local development
-//targetCompatibility = '18' // local development
-
-sourceCompatibility = '17' // deploying on Google App Engine
-targetCompatibility = '17' // deploying on Google App Engine
+sourceCompatibility = '17'
+targetCompatibility = '17'
 
 compileJava {
     options.encoding = "UTF-8"

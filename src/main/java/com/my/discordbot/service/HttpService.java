@@ -1,22 +1,23 @@
 package com.my.discordbot.service;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
 
 @Service
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 class HttpService {
 
-    @Autowired
-    private OkHttpClient client;
+    private final OkHttpClient client;
 
     public Response uploadFile(File file, String cloudFunctionUrl, String secretToken) throws IOException {
         //OkHttpClient client = new OkHttpClient();
