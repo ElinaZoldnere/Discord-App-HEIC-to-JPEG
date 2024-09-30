@@ -22,6 +22,9 @@
 
 # Environment
 .env
+.env.*
+# except
+!/.env.example
 
 # Log
 *.log
